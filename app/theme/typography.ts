@@ -10,12 +10,21 @@ import {
   SpaceGrotesk_700Bold as spaceGroteskBold,
 } from "@expo-google-fonts/space-grotesk"
 
+import {
+  Sen_400Regular as senRegular,
+  Sen_700Bold as senBold,
+  Sen_800ExtraBold as senExtraBold,
+} from "@expo-google-fonts/sen"
+
 export const customFontsToLoad = {
   spaceGroteskLight,
   spaceGroteskRegular,
   spaceGroteskMedium,
   spaceGroteskSemiBold,
   spaceGroteskBold,
+  senRegular,
+  senBold,
+  senExtraBold
 }
 
 const fonts = {
@@ -26,6 +35,11 @@ const fonts = {
     medium: "spaceGroteskMedium",
     semiBold: "spaceGroteskSemiBold",
     bold: "spaceGroteskBold",
+  },
+  sen: {
+    normal: "senRegular",
+    medium: "senBold",
+    bold: "senExtraBold"
   },
   helveticaNeue: {
     // iOS only font.
@@ -59,7 +73,7 @@ export const typography = {
   /**
    * The primary font. Used in most places.
    */
-  primary: fonts.spaceGrotesk,
+  primary: fonts.sen,
   /**
    * An alternate font used for perhaps titles and stuff.
    */
