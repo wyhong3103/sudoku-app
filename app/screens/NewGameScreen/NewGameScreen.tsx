@@ -8,7 +8,7 @@ import { colors } from "app/theme";
 
 interface NewGameScreenProps extends AppStackScreenProps<"NewGame"> {}
 
-export const NewGameScreen: FC<NewGameScreenProps> = () => {
+export const NewGameScreen: FC<NewGameScreenProps> = ({navigation}) => {
     const [clue, setClue] = useState(17)
     const clues = Array.from(Array(82).keys())
     const swiperRef = useRef<any>({});
@@ -21,7 +21,7 @@ export const NewGameScreen: FC<NewGameScreenProps> = () => {
     return(
         <View style={$container}>
             <View style={$main}>
-                <Text text='Number of Clues' size={'xl'}/>
+                <Text text='Number of Clues' size={'xl'} preset="subheading"/>
                 <View style={$swiperContainer}>
                     <SwiperFlatList
                         ref={(component) => { swiperRef.current._swiper = component; }}
@@ -59,7 +59,7 @@ export const NewGameScreen: FC<NewGameScreenProps> = () => {
                 />
                 <Button
                     text='BACK'
-                    onPress={() => console.log("Back")}
+                    onPress={() => navigation.goBack()}
                     style={$secondaryBtn}
                     pressedStyle={$secondaryBtnPressed}
                     textStyle={$btnText}
@@ -121,7 +121,7 @@ const $swiperContainer: ViewStyle = {
 }
 
 const $clue : TextStyle = {
-    fontSize: width*0.5,
+    fontSize: width*0.4,
     lineHeight: undefined,
     color: "#565656",
     textAlign: "center"

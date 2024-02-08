@@ -12,7 +12,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
     return (
         <View style={$container}>
             <View style={$titleContainer}>
-                <Text text='Sudoku' size={'xxxl'}/>
+                <Text text='Sudoku' size={'xxxl'} preset="heading"/>
             </View>
             <View style={$btnContainer}>
                 <Button

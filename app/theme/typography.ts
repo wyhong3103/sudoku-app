@@ -39,7 +39,7 @@ const fonts = {
   sen: {
     normal: "senRegular",
     medium: "senBold",
-    bold: "senExtraBold"
+    bold: "senBold",
   },
   helveticaNeue: {
     // iOS only font.
