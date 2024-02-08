@@ -1,6 +1,6 @@
 import i18n from "i18n-js"
 import React from "react"
-import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle, Dimensions } from "react-native"
+import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
 import { isRTL, translate, TxKeyPath } from "../i18n"
 import { colors, typography } from "../theme"
 

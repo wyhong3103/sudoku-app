@@ -16,6 +16,10 @@ import {
   Sen_800ExtraBold as senExtraBold,
 } from "@expo-google-fonts/sen"
 
+import {
+    ShadowsIntoLight_400Regular as shadowRegular
+} from "@expo-google-fonts/shadows-into-light"
+
 export const customFontsToLoad = {
   spaceGroteskLight,
   spaceGroteskRegular,
@@ -24,10 +28,14 @@ export const customFontsToLoad = {
   spaceGroteskBold,
   senRegular,
   senBold,
-  senExtraBold
+  senExtraBold,
+  shadowRegular
 }
 
 const fonts = {
+  shadow: {
+    normal: "shadowRegular"
+  },
   spaceGrotesk: {
     // Cross-platform Google font.
     light: "spaceGroteskLight",

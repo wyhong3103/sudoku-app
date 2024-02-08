@@ -98,6 +98,8 @@ export const iconRegistry = {
   settings: require("../../assets/icons/settings.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
+  lightbulb: require('../../assets/icons/lightbulb.png'),
+  restart: require('../../assets/icons/restart.png'),
 }
 
 const $imageStyleBase: ImageStyle = {

@@ -52,7 +52,7 @@ export const NewGameScreen: FC<NewGameScreenProps> = ({navigation}) => {
             <View style={$btnContainer}>
                 <Button
                     text='START'
-                    onPress={() => console.log("Start")}
+                    onPress={() => navigation.navigate("GameScreen")}
                     style={$primaryBtn}
                     pressedStyle={$primaryBtnPressed}
                     textStyle={$btnText}

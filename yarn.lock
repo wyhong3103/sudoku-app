@@ -1239,6 +1239,11 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/sen/-/sen-0.2.3.tgz#48029c644406f08ea1ffc2583d7b6fc906114c0e"
   integrity sha512-GwaRLKtVY3e6oXKjPr7X1gGRz+doi5HAjUb1vO2PzDE+/rM0AA5j+SjeqHQXafhxm8JP9dhYxcWm0WuRmSzjqQ==
 
+"@expo-google-fonts/shadows-into-light@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/shadows-into-light/-/shadows-into-light-0.2.3.tgz#29abea2efc4e0f11b5f07d0921e47349ee848bcf"
+  integrity sha512-+OSNTjDaMjkkKTAFxwqfixhLzSP49/rBBk3vQfLCv4b1x0nkkYD5N3v2Babnjmy27Qp3b8Gm7a0SMc6AioDfoA==
+
 "@expo-google-fonts/space-grotesk@^0.2.2":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/space-grotesk/-/space-grotesk-0.2.3.tgz#f2d4fdc167d4d659b2a0d91d608e27ef9a7602f3"
