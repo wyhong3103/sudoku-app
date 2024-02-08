@@ -11,18 +11,10 @@ const palette = {
   neutral800: "#191015",
   neutral900: "#000000",
 
-  primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
+  primary: "#565656",
+  primaryLight: "#AAAAAA",
 
-  secondary100: "#DCDDE9",
-  secondary200: "#BCC0D6",
-  secondary300: "#9196B9",
-  secondary400: "#626894",
-  secondary500: "#41476E",
+  secondary: "#8873FF",
 
   accent100: "#FFEED4",
   accent200: "#FFE1B2",
@@ -51,7 +43,7 @@ export const colors = {
   /**
    * The default text color in many components.
    */
-  text: palette.neutral800,
+  text: palette.primary,
   /**
    * Secondary text information.
    */
@@ -67,7 +59,7 @@ export const colors = {
   /**
    * The main tinting color.
    */
-  tint: palette.primary500,
+  tint: palette.primary,
   /**
    * A subtle color used for lines.
    */

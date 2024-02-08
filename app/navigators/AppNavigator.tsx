@@ -32,8 +32,8 @@ import { colors } from "app/theme"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  Welcome: undefined,
-  Home: undefined
+  Home: undefined,
+  NewGame: undefined 
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -59,6 +59,7 @@ const AppStack = observer(function AppStack() {
       initialRouteName="Home"
     >
           <Stack.Screen name='Home' component={Screens.HomeScreen} />
+          <Stack.Screen name='NewGame' component={Screens.NewGameScreen} />
       {/** 🔥 Your screens go here */}
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
