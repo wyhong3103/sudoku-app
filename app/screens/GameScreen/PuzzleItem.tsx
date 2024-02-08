@@ -49,22 +49,22 @@ const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
 
 const $borderRight: ViewStyle = {
     borderRightWidth: 1,
-    borderColor: "#C6C6C6"
+    borderRightColor: "#C6C6C6"
 }
 
 const $borderBottom: ViewStyle = {
     borderBottomWidth: 1,
-    borderColor: "#C6C6C6"
+    borderBottomColor: "#C6C6C6"
 }
 
 const $borderThickRight: ViewStyle = {
     borderRightWidth: 2,
-    borderRightColor: "#565656"
+    borderRightColor: "#565656",
 }
 
 const $borderThickBottom: ViewStyle = {
     borderBottomWidth: 2,
-    borderBottomColor: "#565656"
+    borderBottomColor: "#565656",
 }
 
 const $item: TextStyle = {
