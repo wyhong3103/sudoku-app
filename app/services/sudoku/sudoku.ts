@@ -92,6 +92,40 @@ const Sudoku = (() => {
         return cloned
     }
 
+    const isValid = (puzzle: number[][]) => {
+        let ok = true;
+        for(let i = 0; i < 9; i++){
+            const vert = Array(9).fill(0);
+            const hor = Array(9).fill(0);
+            for(let j = 0; j < 9; j++){
+                if (!puzzle[i][j]) continue;
+                hor[puzzle[i][j]-1]++;
+
+                if (!puzzle[j][i]) continue;
+                vert[puzzle[j][i]-1]++
+            }
+
+            for(let j = 0; j < 9; j++){
+                ok = ok && hor[j] <= 1;
+                ok = ok && vert[j] <= 1;
+            }
+        }
+
+        for(let i = 0; i < 3; i++){
+            const square = Array(9).fill(0);
+            for(let j = 0; j < 9; j++){
+                if (!puzzle[i*3 + Math.floor(j/3)][i*3 + j % 3]) continue;
+                square[puzzle[i*3 + Math.floor(j/3)][i*3 + j % 3]-1]++;
+            }
+            for(let j = 0; j < 9; j++){
+                ok = ok && square[j] <= 1;
+            }
+        }
+
+        console.log(ok)
+        return ok;
+    }
+
     const isSolved = (puzzle: number[][]) => {
         let ok = true;
         for(let i = 0; i < 9; i++){
@@ -118,6 +152,7 @@ const Sudoku = (() => {
                 found[puzzle[i*3 + Math.floor(j/3)][i*3 + j % 3]-1] = true;
             }
         }
+
 
         return ok;
     }
@@ -209,7 +244,8 @@ const Sudoku = (() => {
         generatePuzzle,
         solvePuzzle,
         getHint,
-        isSolved
+        isSolved,
+        isValid
     }
 })()
 

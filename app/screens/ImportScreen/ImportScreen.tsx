@@ -17,7 +17,7 @@ export const ImportScreen: FC<ImportScreenProps> = ({navigation}) => {
             <View style={$btnContainer}>
                 <Button
                     text='FROM CAMERA'
-                    onPress={() => console.log("camera")}
+                    onPress={() => navigation.navigate('Correct')}
                     style={$primaryBtn}
                     pressedStyle={$primaryBtnPressed}
                     textStyle={$btnText}

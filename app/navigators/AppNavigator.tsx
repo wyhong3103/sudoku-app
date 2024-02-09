@@ -35,7 +35,8 @@ export type AppStackParamList = {
   Home: undefined,
   NewGame: undefined,
   Game: {clues?: number},
-  Import: undefined
+  Import: undefined,
+  Correct: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -63,7 +64,8 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name='Home' component={Screens.HomeScreen} />
           <Stack.Screen name='NewGame' component={Screens.NewGameScreen} />
           <Stack.Screen name='Game' component={Screens.GameScreen} initialParams={{clues: undefined}}/>
-          <Stack.Screen name='Import' component={Screens.ImportScreen} initialParams={{clues: undefined}}/>
+          <Stack.Screen name='Import' component={Screens.ImportScreen} />
+          <Stack.Screen name='Correct' component={Screens.CorrectScreen} />
       {/** 🔥 Your screens go here */}
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
