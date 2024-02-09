@@ -41,6 +41,9 @@ export const SudokuStoreModel = types
         },
         clearHint(row: number, col: number){
             store.mask[row][col] = 0;
+        },
+        setMaskItem(row: number, col: number, value: number){
+            store.mask[row][col] = value
         }
     }))
 

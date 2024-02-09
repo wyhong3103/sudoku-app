@@ -4,10 +4,11 @@ import { PuzzleItem } from "./PuzzleItem";
 
 interface PuzzleGridProps {
     puzzle: number[][],
-    mask: number[][]
+    mask: number[][],
+    cb?: any
 }
 
-export const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask}) => {
+export const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask, cb}) => {
     const toSudokuGrid = (puzzle: number[][]) => {
         const rows = []
         for(let i = 0; i < 9; i++){
@@ -16,7 +17,7 @@ export const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask}) => {
                     {
                         puzzle[i].map(
                             (value: number, idx: number) => (
-                                <PuzzleItem key={idx} value={value} row={i} col={idx} anchor={mask[i][idx]}/>
+                                <PuzzleItem key={idx} value={value} row={i} col={idx} anchor={mask[i][idx]} cb={cb}/>
                             )
                         )
                     }

@@ -8,22 +8,26 @@ interface PuzzleItemProps{
     value: number,
     row: number,
     col: number,
-    anchor: number
+    anchor: number,
+    cb?: any
 }
 
-export const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
+export const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor, cb}) => {
     const { sudokuStore } = useStores();
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePressIn = () => {
-      setIsPressed(true);
+        setIsPressed(true);
     };
   
     const handlePressOut = () => {
-      setIsPressed(false);
-      if (anchor !== 1){
-        sudokuStore.setSelected(row, col);
-      }
+        setIsPressed(false);
+        if (anchor !== 1){
+            sudokuStore.setSelected(row, col);
+        }
+        if (value){
+            cb && cb(row, col, anchor);
+        }
     };
 
 

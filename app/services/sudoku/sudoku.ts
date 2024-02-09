@@ -121,9 +121,18 @@ const Sudoku = (() => {
                 ok = ok && square[j] <= 1;
             }
         }
-
-        console.log(ok)
         return ok;
+    }
+
+    const isValidMask = (puzzle: number[][], mask: number[][]) => {
+        const cloned = JSON.parse(JSON.stringify(puzzle))
+        for(let i = 0; i < 9; i++){
+            for(let j =0 ; j < 9; j++){
+                if (!mask[i][j]) cloned[i][j] = 0;
+            }
+        }
+
+        return solveHelper(0, 0, cloned);
     }
 
     const isSolved = (puzzle: number[][]) => {
@@ -245,7 +254,8 @@ const Sudoku = (() => {
         solvePuzzle,
         getHint,
         isSolved,
-        isValid
+        isValid,
+        isValidMask
     }
 })()
 
