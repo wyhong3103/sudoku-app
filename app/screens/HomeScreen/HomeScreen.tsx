@@ -24,7 +24,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({navigation}) => {
                 />
                 <Button
                     text='IMPORT GAME'
-                    onPress={() => console.log("import")}
+                    onPress={() => navigation.navigate('Import')}
                     style={$secondaryBtn}
                     pressedStyle={$secondaryBtnPressed}
                     textStyle={$btnText}

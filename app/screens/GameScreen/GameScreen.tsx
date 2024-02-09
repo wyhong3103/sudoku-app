@@ -10,7 +10,7 @@ import { useStores } from "app/models";
 import { getSnapshot } from "mobx-state-tree";
 import Sudoku from "./services/sudoku";
 
-interface GameScreenProps extends AppStackScreenProps<"GameScreen"> {}
+interface GameScreenProps extends AppStackScreenProps<"Game"> {}
 
 export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) => {
     const { sudokuStore } = useStores();
