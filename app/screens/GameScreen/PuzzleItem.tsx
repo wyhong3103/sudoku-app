@@ -2,7 +2,6 @@ import React, {FC, useState} from "react";
 import { TouchableWithoutFeedback, View, ViewStyle, TextStyle } from "react-native";
 import { Text } from "app/components";
 import { typography } from "app/theme";
-// import { observer } from "mobx-react-lite";
 import { useStores } from "app/models";
 
 interface PuzzleItemProps{
@@ -22,14 +21,14 @@ const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
   
     const handlePressOut = () => {
       setIsPressed(false);
-      if (!anchor){
+      if (anchor !== 1){
         sudokuStore.setSelected(row, col);
       }
     };
 
 
     const getItemContainerStyles = (row: number, col: number) => {
-        const styles = [isPressed && !anchor ? $pressedContainer : $container]
+        const styles = [anchor === 2 ? $hintGreen : (anchor === 3 && $hintRed), isPressed && anchor !== 1 ? $pressedContainer : $container]
 
         if (row < 8){
             if ((row+1) % 3 === 0){
@@ -49,7 +48,7 @@ const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
             <View style={getItemContainerStyles(row, col)}>
                 {
                     !!value &&
-                    <Text text={`${value}`} style={[$item, !anchor && $unmasked]}/>
+                    <Text text={`${value}`} style={[$item, anchor !== 1 && $user]}/>
                 }
             </View>
         </TouchableWithoutFeedback>
@@ -82,7 +81,7 @@ const $item: TextStyle = {
 }
 
 
-const $unmasked: TextStyle = {
+const $user: TextStyle = {
     fontFamily: typography.fonts.shadow.normal,
     color: "#888"
 }
@@ -100,6 +99,14 @@ const $pressedContainer: ViewStyle = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#CCC"
+}
+
+const $hintGreen: ViewStyle = {
+    backgroundColor: "#87ffa7"
+}
+
+const $hintRed: ViewStyle = {
+    backgroundColor: "#ff8787"
 }
 
 export default PuzzleItem;

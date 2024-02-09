@@ -8,9 +8,6 @@ interface PuzzleGridProps {
 }
 
 const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask}) => {
-
-
-
     const toSudokuGrid = (puzzle: number[][]) => {
         const rows = []
         for(let i = 0; i < 9; i++){

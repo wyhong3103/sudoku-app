@@ -7,12 +7,44 @@ import PuzzleGrid from "./PuzzleGrid";
 import NumPad from "./NumPad";
 import { observer } from "mobx-react-lite";
 import { useStores } from "app/models";
+import { getSnapshot } from "mobx-state-tree";
 import Sudoku from "./services/sudoku";
 
 interface GameScreenProps extends AppStackScreenProps<"GameScreen"> {}
 
 export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) => {
     const { sudokuStore } = useStores();
+    
+    const onHint = () => {
+        const { puzzle, mask, hint } = Sudoku.getHint(sudokuStore.puzzle, sudokuStore.mask);
+        sudokuStore.setPuzzle(puzzle);
+        sudokuStore.setMask(mask);
+        setTimeout(
+            () => {
+                sudokuStore.clearHint(hint[0], hint[1]);
+            }
+        , 1000)
+    }
+
+    const onAnswer = () => {
+        const puzzle = Sudoku.solvePuzzle(sudokuStore.puzzle, sudokuStore.mask);
+        sudokuStore.setPuzzle(puzzle);
+    }
+
+    const onRestart = () => {
+        let clues = 0;
+        const curMask = sudokuStore.mask;
+        for(let i = 0; i < 9; i++){
+            for(let j = 0; j < 9; j++){
+                clues += Math.min(1, curMask[i][j])
+            }
+        }
+
+        const { puzzle, mask } =  Sudoku.generatePuzzle(clues)
+        sudokuStore.setPuzzle(puzzle)
+        sudokuStore.setMask(mask)
+        sudokuStore.setSelected(undefined, undefined);
+    }
 
     useEffect(
         () => {
@@ -20,6 +52,7 @@ export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) =>
                 const { puzzle, mask } =  Sudoku.generatePuzzle(route.params.clues)
                 sudokuStore.setPuzzle(puzzle)
                 sudokuStore.setMask(mask)
+                sudokuStore.setSelected(undefined, undefined);
             }
         }
     ,[sudokuStore])
@@ -30,7 +63,9 @@ export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) =>
                 <Text text='Sudoku' preset='heading'/>
                 {
                     sudokuStore.puzzle.length > 0 && sudokuStore.mask.length > 0 ? 
-                    <PuzzleGrid puzzle={sudokuStore.puzzle} mask={sudokuStore.mask}/>
+                    // getSnapshot is used because it is updated asynchronously
+                    // https://github.com/mobxjs/mobx-state-tree/issues/1185
+                    <PuzzleGrid puzzle={sudokuStore.puzzle} mask={getSnapshot(sudokuStore.mask)}/>
                     :
                     null
                 }
@@ -41,15 +76,15 @@ export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) =>
                 }/>
             </View>
             <View style={$btnContainer}>
-                <Pressable style={({pressed}) => [$btn, pressed && $pressed]}>
+                <Pressable style={({pressed}) => [$btn, pressed && $pressed]} onPress={onHint}>
                     <Icon icon='lightbulb' color='white' style={$icon}/>
                     <Text text='HINT' style={$text}/>
                 </Pressable>
-                <Pressable style={({pressed}) => [$btn, pressed && $pressed]}>
+                <Pressable style={({pressed}) => [$btn, pressed && $pressed]} onPress={onAnswer}>
                     <Icon icon='check' color='white' style={$icon}/>
                     <Text text='ANSWER' style={$text}/>
                 </Pressable>
-                <Pressable style={({pressed}) => [$btn, pressed && $pressed]}>
+                <Pressable style={({pressed}) => [$btn, pressed && $pressed]} onPress={onRestart}>
                     <Icon icon='restart' color='white' style={$icon}/>
                     <Text text='RESTART' style={$text}/>
                 </Pressable>

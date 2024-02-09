@@ -1,4 +1,5 @@
-import { Instance, SnapshotOut, types, cast } from "mobx-state-tree"
+import { Instance, SnapshotOut, types, cast, flow } from "mobx-state-tree"
+import { runInAction } from "mobx";
 
 const MatrixType = types.array(types.array(types.number));
 
@@ -37,6 +38,9 @@ export const SudokuStoreModel = types
         setSelected(row?:number, col?:number){
             store.selected.setRow(row);
             store.selected.setCol(col);
+        },
+        clearHint(row: number, col: number){
+            store.mask[row][col] = 0;
         }
     }))
 

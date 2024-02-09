@@ -64,14 +64,120 @@ const Sudoku = (() => {
         }
     }
 
-    const solvePuzzle = (puzzle: number[][]) => {
+    const solvePuzzle = (puzzle: number[][], mask: number[][]) => {
         const cloned = JSON.parse(JSON.stringify(puzzle))
-        solveHelper(0, 0, cloned);
+
+        if (solveHelper(0, 0, cloned)){
+            return cloned
+        }else{
+            // user input
+            let user = []
+            for(let i = 0; i < 9; i++){
+                for(let j = 0; j < 9; j++){
+                    if (mask[i][j] !== 1 && cloned[i][j]){
+                        user.push([i, j])
+                    }
+                }
+            }
+
+            user = shuffle(user);
+
+            for(const i of user){
+                cloned[i[0]][i[1]] = 0;
+                if (solveHelper(0, 0, cloned)){
+                    return cloned;
+                }
+            }
+        }
         return cloned
     }
 
+    const isSolved = (puzzle: number[][]) => {
+        let ok = true;
+        for(let i = 0; i < 9; i++){
+            const vert = Array(9).fill(false);
+            const hor = Array(9).fill(false);
+            for(let j = 0; j < 9; j++){
+                if (!puzzle[i][j]) return false;
+                hor[puzzle[i][j]-1] = true;
+
+                if (!puzzle[j][i]) return false;
+                vert[puzzle[j][i]-1] = true;
+            }
+
+            for(let j = 0; j < 9; j++){
+                ok = ok && hor[j];
+                ok = ok && vert[j];
+            }
+        }
+
+        for(let i = 0; i < 3; i++){
+            const found = Array(9).fill(false);
+            for(let j = 0; j < 9; j++){
+                if (!puzzle[i*3 + Math.floor(j/3)][i*3 + j % 3]) return false;
+                found[puzzle[i*3 + Math.floor(j/3)][i*3 + j % 3]-1] = true;
+            }
+        }
+
+        return ok;
+    }
+
+    const getHint: (puzzle:number[][], mask:number[][]) => 
+        {
+            puzzle:number[][],
+            mask: number[][],
+                hint: number[]
+        } = 
+        (puzzle: number[][], mask: number[][]) => {
+
+        const cloned = JSON.parse(JSON.stringify(puzzle))
+        const retPuzzle = JSON.parse(JSON.stringify(puzzle))
+        const retMask = JSON.parse(JSON.stringify(mask))
+
+        if (solveHelper(0, 0, cloned)){
+            for(let i = 0; i < 9; i++){
+                for(let j = 0; j < 9; j++){
+                    if (!retPuzzle[i][j] && cloned[i][j]){
+                        retPuzzle[i][j]  = cloned[i][j]; 
+                        // mark as hint
+                        retMask[i][j] = 2;
+                        return {puzzle: retPuzzle, mask: retMask, hint:[i, j]};
+                    }
+                }
+            }
+            return  { puzzle, mask, hint: [0, 0] }
+        }else{
+            // user input
+            let user = []
+            for(let i = 0; i < 9; i++){
+                for(let j = 0; j < 9; j++){
+                    if (mask[i][j] !== 1 && cloned[i][j]){
+                        user.push([i, j])
+                    }
+                }
+            }
+
+            user = shuffle(user);
+
+            for(const i of user){
+                cloned[i[0]][i[1]] = 0;
+                if (solveHelper(0, 0, cloned)){
+                    retPuzzle[i[0]][i[1]] = 0;
+                    // mark as removed
+                    retMask[i[0]][i[1]] = 3;
+                    return {puzzle: retPuzzle, mask: retMask, hint: i};
+                }
+                cloned[i[0]][i[1]] = retPuzzle[i[0]][i[1]];
+            }
+
+            retPuzzle[user[0][0]][user[0][1]] = 0;
+            retMask[user[0][0]][user[0][1]] = 3;
+            return {puzzle: retPuzzle, mask: retMask, hint: user[0]};
+        }
+    }
+
     const generatePuzzle = (clues: number) => {
-        let puzzle = initMatrix();
+        const puzzle = initMatrix();
         const mask = initMatrix();
 
         for(let i = 0; i < 3; i++){
@@ -81,8 +187,8 @@ const Sudoku = (() => {
             }
         }
 
-        puzzle = solvePuzzle(puzzle)
-
+        // Solve puzzle
+        solveHelper(0, 0, puzzle);
 
         const indices = shuffle(Array.from(Array(81).keys()))
 
@@ -100,7 +206,10 @@ const Sudoku = (() => {
 
     return {
         getAvailable,
-        generatePuzzle
+        generatePuzzle,
+        solvePuzzle,
+        getHint,
+        isSolved
     }
 })()
 
