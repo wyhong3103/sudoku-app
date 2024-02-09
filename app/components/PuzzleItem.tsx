@@ -11,7 +11,7 @@ interface PuzzleItemProps{
     anchor: number
 }
 
-const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
+export const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
     const { sudokuStore } = useStores();
     const [isPressed, setIsPressed] = useState(false);
 
@@ -108,5 +108,3 @@ const $hintGreen: ViewStyle = {
 const $hintRed: ViewStyle = {
     backgroundColor: "#ff8787"
 }
-
-export default PuzzleItem;

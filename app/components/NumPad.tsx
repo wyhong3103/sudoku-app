@@ -8,7 +8,7 @@ interface NumPadProps{
     available: boolean[]
 }
 
-const NumPad: FC<NumPadProps> = ({available}) => {
+export const NumPad: FC<NumPadProps> = ({available}) => {
 
     const {sudokuStore} = useStores();
 
@@ -99,5 +99,3 @@ const $icon: ImageStyle = {
 const $disabled: TextStyle = {
     color: "#ABABAB"
 }
-
-export default NumPad;

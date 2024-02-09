@@ -2,13 +2,11 @@ import { AppStackScreenProps } from "app/navigators";
 import { ImageStyle, Pressable, TextStyle, View, ViewStyle } from "react-native";
 import { colors } from "app/theme";
 import React, {FC, useEffect, useState} from "react";
-import { Text, Icon } from "app/components";
-import PuzzleGrid from "./PuzzleGrid";
-import NumPad from "./NumPad";
+import { PuzzleGrid, NumPad, Text, Icon } from "app/components";
 import { observer } from "mobx-react-lite";
 import { useStores } from "app/models";
 import { getSnapshot } from "mobx-state-tree";
-import Sudoku from "./services/sudoku";
+import Sudoku from "../../services/sudoku/sudoku";
 
 interface GameScreenProps extends AppStackScreenProps<"Game"> {}
 
