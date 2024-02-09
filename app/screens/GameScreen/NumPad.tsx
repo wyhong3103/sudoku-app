@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import { View, ViewStyle, TextStyle, Pressable, ImageStyle } from "react-native";
 import { Icon, Text } from "app/components";
 import { colors } from "app/theme";
+import { useStores } from "app/models";
 
 interface NumPadProps{
     available: boolean[]
@@ -9,13 +10,25 @@ interface NumPadProps{
 
 const NumPad: FC<NumPadProps> = ({available}) => {
 
+    const {sudokuStore} = useStores();
+
+    const onSet = (value: number) => {
+        if (sudokuStore.selected.row !== undefined && sudokuStore.selected.col !== undefined) 
+            sudokuStore.setItem(sudokuStore.selected.row, sudokuStore.selected.col, value)
+    }
+
+    const onUnset = () => {
+        if (sudokuStore.selected.row !== undefined && sudokuStore.selected.col !== undefined) 
+            sudokuStore.setItem(sudokuStore.selected.row, sudokuStore.selected.col, 0)
+    }
+
     return(
         <View style={$container}>
             <View style={$rowContainer}>
                 {
                     [1, 2, 3, 4, 5].map(
                         (i, idx) => (
-                            <Pressable key={idx} style={({pressed}) => [$btn, pressed && $pressed]}  disabled={!available[i-1]}>
+                            <Pressable key={idx} style={({pressed}) => [$btn, pressed && $pressed]}  disabled={!available[i-1]} onPress={() => onSet(i)}>
                                 <Text text={`${i}`} style={[$text, !available[i-1] && $disabled]} preset="bold"/>
                             </Pressable>
                         )
@@ -26,13 +39,13 @@ const NumPad: FC<NumPadProps> = ({available}) => {
                 {
                     [6, 7, 8, 9].map(
                         (i, idx) => (
-                            <Pressable key={idx} style={({pressed}) => [$btn, pressed && $pressed]}  disabled={!available[i-1]}>
+                            <Pressable key={idx} style={({pressed}) => [$btn, pressed && $pressed]}  disabled={!available[i-1]} onPress={() => onSet(i)}>
                                 <Text text={`${i}`} style={[$text, !available[i-1] && $disabled]} preset="bold"/>
                             </Pressable>
                         )
                     )
                 }
-                <Pressable style={({pressed}) => [$unsetBtn, pressed && $pressed]}>
+                <Pressable style={({pressed}) => [$unsetBtn, pressed && $pressed]} onPress={() => onUnset()}>
                     <Icon icon='x' style={$icon}/>
                 </Pressable>
             </View>

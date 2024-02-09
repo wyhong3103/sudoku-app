@@ -2,15 +2,18 @@ import React, {FC, useState} from "react";
 import { TouchableWithoutFeedback, View, ViewStyle, TextStyle } from "react-native";
 import { Text } from "app/components";
 import { typography } from "app/theme";
+// import { observer } from "mobx-react-lite";
+import { useStores } from "app/models";
 
 interface PuzzleItemProps{
     value: number,
     row: number,
     col: number,
-    anchor: boolean
+    anchor: number
 }
 
 const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
+    const { sudokuStore } = useStores();
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePressIn = () => {
@@ -19,11 +22,14 @@ const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
   
     const handlePressOut = () => {
       setIsPressed(false);
+      if (!anchor){
+        sudokuStore.setSelected(row, col);
+      }
     };
 
 
     const getItemContainerStyles = (row: number, col: number) => {
-        const styles = [isPressed ? $pressedContainer : $container]
+        const styles = [isPressed && !anchor ? $pressedContainer : $container]
 
         if (row < 8){
             if ((row+1) % 3 === 0){
@@ -41,7 +47,10 @@ const PuzzleItem: FC<PuzzleItemProps> = ({row, col, value, anchor}) => {
     return(
         <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut}>
             <View style={getItemContainerStyles(row, col)}>
-                <Text text={`${value}`} style={[$item, !anchor && $unmasked]}/>
+                {
+                    !!value &&
+                    <Text text={`${value}`} style={[$item, !anchor && $unmasked]}/>
+                }
             </View>
         </TouchableWithoutFeedback>
     )
@@ -69,7 +78,7 @@ const $borderThickBottom: ViewStyle = {
 
 const $item: TextStyle = {
     fontSize: 30,
-    lineHeight: undefined
+    lineHeight: undefined,
 }
 
 

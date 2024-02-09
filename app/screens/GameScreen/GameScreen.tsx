@@ -1,38 +1,44 @@
 import { AppStackScreenProps } from "app/navigators";
 import { ImageStyle, Pressable, TextStyle, View, ViewStyle } from "react-native";
 import { colors } from "app/theme";
-import React, {FC} from "react";
+import React, {FC, useEffect, useState} from "react";
 import { Text, Icon } from "app/components";
 import PuzzleGrid from "./PuzzleGrid";
 import NumPad from "./NumPad";
+import { observer } from "mobx-react-lite";
+import { useStores } from "app/models";
+import Sudoku from "./services/sudoku";
 
 interface GameScreenProps extends AppStackScreenProps<"GameScreen"> {}
 
-export const GameScreen: FC<GameScreenProps> = () => {
-    const puzzle = [];
-    const mask = [];
-    for (let i = 0; i < 9; i++){
-        const row = []
-        for(let j = 0; j  < 9; j++){
-            row.push(j)
-        }
-        puzzle.push(row)
-    }
+export const GameScreen: FC<GameScreenProps> = observer(({navigation, route}) => {
+    const { sudokuStore } = useStores();
 
-    for (let i = 0; i < 9; i++){
-        const row = []
-        for(let j = 0; j  < 9; j++){
-            row.push(!!Math.floor(Math.random() * 2))
+    useEffect(
+        () => {
+            if (route.params.clues !== undefined){
+                const { puzzle, mask } =  Sudoku.generatePuzzle(route.params.clues)
+                sudokuStore.setPuzzle(puzzle)
+                sudokuStore.setMask(mask)
+            }
         }
-        mask.push(row)
-    }
+    ,[sudokuStore])
 
     return (
         <View style={$container}>
             <View style={$gameContainer}>
                 <Text text='Sudoku' preset='heading'/>
-                <PuzzleGrid puzzle={puzzle} mask={mask}/>
-                <NumPad available={[false, true, false, false, false, false, true, false, true, false]}/>
+                {
+                    sudokuStore.puzzle.length > 0 && sudokuStore.mask.length > 0 ? 
+                    <PuzzleGrid puzzle={sudokuStore.puzzle} mask={sudokuStore.mask}/>
+                    :
+                    null
+                }
+                <NumPad available={
+                    sudokuStore.selected.row !== undefined && sudokuStore.selected.col !== undefined ? 
+                    Sudoku.getAvailable(sudokuStore.selected.row, sudokuStore.selected.col, sudokuStore.puzzle) :
+                    Array(10).fill(0)
+                }/>
             </View>
             <View style={$btnContainer}>
                 <Pressable style={({pressed}) => [$btn, pressed && $pressed]}>
@@ -47,14 +53,14 @@ export const GameScreen: FC<GameScreenProps> = () => {
                     <Icon icon='restart' color='white' style={$icon}/>
                     <Text text='RESTART' style={$text}/>
                 </Pressable>
-                <Pressable style={({pressed}) => [$btn, $exitBtn, pressed && $exitPressed]}>
+                <Pressable style={({pressed}) => [$btn, $exitBtn, pressed && $exitPressed]} onPressOut={() => navigation.navigate('Home')}>
                     <Icon icon='back' color='white' style={$icon}/>
                     <Text text='EXIT' style={$text}/>
                 </Pressable>
             </View>
         </View>
     )
-}
+})
 
 const $container: ViewStyle = {
     flex: 1,

@@ -4,7 +4,7 @@ import PuzzleItem from "./PuzzleItem";
 
 interface PuzzleGridProps {
     puzzle: number[][],
-    mask: boolean[][]
+    mask: number[][]
 }
 
 const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask}) => {

@@ -36,7 +36,6 @@ const Sudoku = (() => {
         for(let i = 0; i < 9; i++){
             found[i] = 1 - found[i]
         }
-
         return found
     }
 
@@ -100,6 +99,7 @@ const Sudoku = (() => {
     }
 
     return {
+        getAvailable,
         generatePuzzle
     }
 })()
