@@ -86,3 +86,8 @@ frontend/web-build/
 frontend/!env.js
 
 frontend/coverage
+
+
+# Backend
+
+backend/__pycache__/
