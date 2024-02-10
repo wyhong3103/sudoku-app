@@ -1,5 +1,5 @@
 import torch
-from model import CNN
+from .model import CNN
 import numpy as np
 import cv2
 
@@ -17,7 +17,7 @@ class SudokuRecognition(object):
         else "cpu"
     )
     model = CNN().to(device)
-    model.load_state_dict(torch.load('./weight', map_location=torch.device(device)))
+    model.load_state_dict(torch.load('sudoku_recognition/weight', map_location=torch.device(device)))
     model.eval()
 
     @staticmethod
