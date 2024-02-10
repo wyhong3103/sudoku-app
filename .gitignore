@@ -90,4 +90,4 @@ frontend/coverage
 
 # Backend
 
-backend/__pycache__/
+**/__pycache__/
