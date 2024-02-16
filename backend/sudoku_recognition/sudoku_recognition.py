@@ -1,5 +1,5 @@
 import torch
-from .model import CNN
+from sudoku_recognition.model import CNN
 import numpy as np
 import cv2
 

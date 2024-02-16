@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import cv2
 import numpy as np
-from .sudoku_recognition.sudoku_recognition import SudokuRecognition
+from sudoku_recognition.sudoku_recognition import SudokuRecognition
 
 app = Flask(__name__)
 
