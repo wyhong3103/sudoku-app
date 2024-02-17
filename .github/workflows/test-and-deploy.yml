@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - main
-
+env:
+  AWS_REGION: ap-southeast-2       
+  
 jobs:
   # test:
   #   name: Test
@@ -51,7 +53,6 @@ jobs:
       env:
         ECR_REGISTRY: public.ecr.aws/f5b6y5q7
         IMAGE_TAG: ${{ github.sha }}   
-        AWS_REGION: ap-southeast-2                  
         ECR_REPOSITORY: sudoku-recognition           
       run: |
         # Build a docker container and
