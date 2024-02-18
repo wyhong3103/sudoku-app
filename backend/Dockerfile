@@ -1,6 +1,6 @@
 FROM python:3.10
-RUN sudo apt-get update \
- && sudo apt-get install -y libgl1-mesa-glx libgtk2.0-0 libsm6 libxext6 
+RUN apt-get update \
+ && apt-get install -y libgl1-mesa-glx libgtk2.0-0 libsm6 libxext6 
 WORKDIR /home/app
 RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 COPY requirements.txt .
