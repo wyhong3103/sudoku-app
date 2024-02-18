@@ -1,4 +1,4 @@
-FROM bitnami/pytorch:2.2.0
+FROM bitnami/pytorch:2.2.0-debian-11-r15
 RUN sudo apt-get update \
  && sudo apt-get install -y libgl1-mesa-glx libgtk2.0-0 libsm6 libxext6 
 WORKDIR /home/app
