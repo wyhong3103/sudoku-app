@@ -1,0 +1,46 @@
+{
+    "family": "sudoku-recognition",
+    "containerDefinitions": [
+        {
+            "name": "sudoku-recognition",
+            "image": "445845167593.dkr.ecr.ap-southeast-2.amazonaws.com/sudoku-recognition:3fab393334f5abbc56cad23343fd1f1f0f1b2095",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "sudoku-recognition-3030-tcp",
+                    "containerPort": 3030,
+                    "hostPort": 3030,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/sudoku-recognition",
+                    "awslogs-region": "ap-southeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            }
+        }
+    ],
+    "executionRoleArn": "arn:aws:iam::445845167593:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "1024",
+    "memory": "922",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}
