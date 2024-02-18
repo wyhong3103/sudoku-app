@@ -1,5 +1,4 @@
-FROM anibali/pytorch:2.0.1-cuda11.8-ubuntu22.04
-
+FROM bitnami/pytorch:2.2.0
 RUN sudo apt-get update \
  && sudo apt-get install -y libgl1-mesa-glx libgtk2.0-0 libsm6 libxext6 \
  && sudo rm -rf /var/lib/apt/lists/*
