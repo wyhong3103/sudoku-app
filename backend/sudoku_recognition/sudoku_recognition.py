@@ -203,7 +203,7 @@ class SudokuRecognition(object):
 
         for v_iterations in [1, 3, 7, 11, 15]:
             for h_iterations in [1, 3, 7, 11, 15]:
-                for alpha in [0, 1.0, 2.0]:
+                for alpha in [0, 0.5, 1.0, 2.0]:
                     try:
                         im_copy = np.copy(im)
                         im_copy = cv2.convertScaleAbs(im_copy, alpha)
