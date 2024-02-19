@@ -10,7 +10,6 @@ def inference():
     im = request.files['image'].read()
     im = np.frombuffer(im, dtype=np.uint8)
     im = cv2.imdecode(im, cv2.IMREAD_COLOR)
-    im = cv2.resize(im, (800, 800), interpolation = cv2.INTER_AREA)
     inference = SudokuRecognition.recognize(im)
 
     if (inference == None):

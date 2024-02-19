@@ -197,10 +197,13 @@ class SudokuRecognition(object):
 
     @staticmethod
     def recognize(im):
+        # Resize
+        im = cv2.resize(im, (800, 800), interpolation = cv2.INTER_AREA)
         sudoku = None
-        for v_iterations in [3, 7, 11, 15]:
-            for h_iterations in [3, 7, 11, 15]:
-                for alpha in [0, 1.0, 1.5, 2.0]:
+
+        for v_iterations in [1, 3, 7, 11, 15]:
+            for h_iterations in [1, 3, 7, 11, 15]:
+                for alpha in [0, 1.0, 2.0]:
                     try:
                         im_copy = np.copy(im)
                         im_copy = cv2.convertScaleAbs(im_copy, alpha)
