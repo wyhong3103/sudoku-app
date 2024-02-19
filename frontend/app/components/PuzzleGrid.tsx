@@ -14,7 +14,7 @@ export const PuzzleGrid : FC<PuzzleGridProps> = ({puzzle, mask, cb, disabled}) =
         const rows = []
         for(let i = 0; i < 9; i++){
             rows.push(
-                <View style={$row}>
+                <View style={$row} key={i}>
                     {
                         puzzle[i].map(
                             (value: number, idx: number) => (

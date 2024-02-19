@@ -21,7 +21,7 @@ export const ImportScreen: FC<ImportScreenProps> = ({navigation}) => {
             type: "image/jpeg"
         })
     
-        const res = await fetch('http://ec2-13-211-177-226.ap-southeast-2.compute.amazonaws.com:3030/inference', {
+        const res = await fetch(process.env.EXPO_PUBLIC_API_URL+'/inference', {
             method: 'POST',
             body: formData,
         });
