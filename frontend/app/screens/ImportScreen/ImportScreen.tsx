@@ -15,17 +15,13 @@ export const ImportScreen: FC<ImportScreenProps> = ({navigation}) => {
     const recognizeSudoku = async (uri) => {
         const formData = new FormData();
 
-       formData.append('image', {
+        formData.append('image', {
             uri,
             name: "image.jpg",
             type: "image/jpeg"
         })
     
-        // const res = await fetch('http://13.211.177.226:3030/inference', {
-        //     method: 'POST',
-        //     body: formData,
-        // });
-        const res = await fetch('http://192.168.0.175:3030/inference', {
+        const res = await fetch('http://ec2-13-211-177-226.ap-southeast-2.compute.amazonaws.com:3030/inference', {
             method: 'POST',
             body: formData,
         });
